@@ -11,11 +11,14 @@ import { ToastContainer } from "react-toastify";
 
 export default function Home() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  function reduce(event: MouseEvent) {
+    console.log("Reduce")
+  }
 
   return (
     <main className="p-16">
       <div className="flex justify-end">
-        <Button>Reduce</Button>
+        <Button onClick={reduce}>Reduce</Button>
         <HSpacer />
         <CopyToClipboard textareaRef={textareaRef} />
       </div>
@@ -32,8 +35,11 @@ export default function Home() {
       <VSpacer />
       <ScrollableText />
 
-      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} />
-
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+      />
     </main>
   );
 }
