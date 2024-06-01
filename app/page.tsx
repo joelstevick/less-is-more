@@ -10,19 +10,20 @@ import HSpacer from "@/components/h-spacer/h-spacer";
 import { ToastContainer } from "react-toastify";
 
 export default function Home() {
-  const [userContent, setUserContent] = useState('')
-  const [aiResponse, setAiResponse] = useState('This is the AI response text...')
+  const [userContent, setUserContent] = useState("");
+  const [aiResponse, setAiResponse] = useState(
+    "This is the AI response text..."
+  );
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  function getAiResponse(event: MouseEvent) {
-  }
+  function getAiResponse(event: MouseEvent) {}
 
   function use(event: MouseEvent) {
+    setUserContent(aiResponse);
 
-    setUserContent(aiResponse)
-}
-
+    setAiResponse("");
+  }
 
   return (
     <main className="p-16">
@@ -38,11 +39,13 @@ export default function Home() {
       <VSpacer />
       <VSpacer />
 
-      <div className="flex justify-end">
-        <Button onClick={use}>Use</Button>
-      </div>
+      {aiResponse.length > 0 && (
+        <div className="flex justify-end">
+          <Button onClick={use}>Use</Button>
+        </div>
+      )}
       <VSpacer />
-      <ScrollableText content={aiResponse}/>
+      {aiResponse.length > 0 && <ScrollableText content={aiResponse} />}
 
       <ToastContainer
         position="top-right"
