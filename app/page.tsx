@@ -14,9 +14,13 @@ export default function Home() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   function reduce(event: MouseEvent) {
-
-      setContent('xxx')
   }
+  
+  function use(event: MouseEvent) {
+
+    setContent('xxx')
+}
+
 
   return (
     <main className="p-16">
@@ -33,7 +37,7 @@ export default function Home() {
       <VSpacer />
 
       <div className="flex justify-end">
-        <Button>Use</Button>
+        <Button onClick={use}>Use</Button>
       </div>
       <VSpacer />
       <ScrollableText />
