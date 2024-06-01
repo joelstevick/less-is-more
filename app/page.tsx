@@ -11,6 +11,12 @@ import { ToastContainer } from "react-toastify";
 import Spinner from "@/components/spinner/spinner";
 import axios from "axios";
 
+function convertTextToHtml(text: string) {
+  let html = text.replaceAll('\n', '<br><br>')
+
+  return html
+}
+
 export default function Home() {
   const [userContent, setUserContent] = useState("");
   const [aiResponse, setAiResponse] = useState("");
@@ -19,13 +25,15 @@ export default function Home() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   async function getAiResponse(event: MouseEvent) {
+    setAiResponse('')
     setLoading(true);
 
     const res = await axios.post("/api/openai", { prompt: textareaRef.current?.value ?? '' });
 
     setLoading(false)
     
-    setAiResponse(res.data);
+    console.log("XXX", res.data)
+    setAiResponse(convertTextToHtml(res.data));
   }
 
   function use(event: MouseEvent) {
