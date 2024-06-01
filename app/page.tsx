@@ -6,7 +6,9 @@ import VSpacer from "@/components/v-spacer/v-spacer";
 export default function Home() {
   return (
     <main className="p-4">
-      <Button>Reduce</Button>
+      <div className="flex justify-end">
+        <Button>Reduce</Button>
+      </div>
       <VSpacer />
       <Textarea />
       <VSpacer />
