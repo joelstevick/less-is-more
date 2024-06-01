@@ -11,6 +11,14 @@ export default function Home() {
       </div>
       <VSpacer />
       <Textarea />
+
+      <VSpacer />
+      <VSpacer />
+      <VSpacer />
+
+      <div className="flex justify-end">
+        <Button>Use</Button>
+      </div>
       <VSpacer />
       <ScrollableText />
     </main>
