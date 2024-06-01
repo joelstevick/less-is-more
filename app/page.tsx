@@ -1,10 +1,11 @@
-import Image from "next/image";
-import TextareaComponent from "@/components/textarea/textarea";
+import Textarea from "@/components/textarea/textarea";
+import ScrollableText from "@/components/scrollable-text/scrollable-text";
 
 export default function Home() {
   return (
     <main className="">
-        <TextareaComponent />
+      <Textarea />
+      <ScrollableText />
     </main>
   );
 }
