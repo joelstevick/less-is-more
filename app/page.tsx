@@ -5,7 +5,7 @@ import VSpacer from "@/components/v-spacer/v-spacer";
 
 export default function Home() {
   return (
-    <main className="p-4">
+    <main className="p-16">
       <div className="flex justify-end">
         <Button>Reduce</Button>
       </div>
