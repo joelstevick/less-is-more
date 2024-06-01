@@ -15,7 +15,7 @@ export default function Home() {
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  function reduce(event: MouseEvent) {
+  function getAiResponse(event: MouseEvent) {
   }
 
   function use(event: MouseEvent) {
@@ -27,7 +27,7 @@ export default function Home() {
   return (
     <main className="p-16">
       <div className="flex justify-end">
-        <Button onClick={reduce}>Reduce</Button>
+        <Button onClick={getAiResponse}>Get AI Assitance</Button>
         <HSpacer />
         <CopyToClipboard textareaRef={textareaRef} />
       </div>
