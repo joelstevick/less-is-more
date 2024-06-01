@@ -5,6 +5,7 @@ import ScrollableText from "@/components/scrollable-text/scrollable-text";
 import Button from "@/components/button/button";
 import VSpacer from "@/components/v-spacer/v-spacer";
 import { useRef } from "react";
+import CopyToClipboard from "@/components/clipboard/copy-to-clipboard";
 
 export default function Home() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -13,6 +14,8 @@ export default function Home() {
     <main className="p-16">
       <div className="flex justify-end">
         <Button>Reduce</Button>
+        <CopyToClipboard textareaRef={textareaRef} />
+
       </div>
       <VSpacer />
       <Textarea ref={textareaRef}/>
