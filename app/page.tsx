@@ -9,6 +9,7 @@ import CopyToClipboard from "@/components/clipboard/copy-to-clipboard";
 import HSpacer from "@/components/h-spacer/h-spacer";
 import { ToastContainer } from "react-toastify";
 import Spinner from "@/components/spinner/spinner";
+import axios from "axios";
 
 export default function Home() {
   const [userContent, setUserContent] = useState("");
@@ -17,8 +18,14 @@ export default function Home() {
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  function getAiResponse(event: MouseEvent) {
+  async function getAiResponse(event: MouseEvent) {
     setLoading(true);
+
+    const res = await axios.post("/api/openai", { prompt: "what is an apple" });
+
+    setLoading(false)
+    
+    setAiResponse(res.data);
   }
 
   function use(event: MouseEvent) {
