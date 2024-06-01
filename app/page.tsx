@@ -11,13 +11,14 @@ import { ToastContainer } from "react-toastify";
 
 export default function Home() {
   const [userContent, setUserContent] = useState("");
-  const [aiResponse, setAiResponse] = useState(
-    "This is the AI response text..."
-  );
+  const [aiResponse, setAiResponse] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  function getAiResponse(event: MouseEvent) {}
+  function getAiResponse(event: MouseEvent) {
+    setLoading(true);
+  }
 
   function use(event: MouseEvent) {
     setUserContent(aiResponse);
@@ -47,6 +48,7 @@ export default function Home() {
       <VSpacer />
       {aiResponse.length > 0 && <ScrollableText content={aiResponse} />}
 
+      {loading && <div>Loading...</div>}
       <ToastContainer
         position="top-right"
         autoClose={5000}
