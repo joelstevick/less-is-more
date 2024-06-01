@@ -4,16 +4,18 @@ import Textarea from "@/components/textarea/textarea";
 import ScrollableText from "@/components/scrollable-text/scrollable-text";
 import Button from "@/components/button/button";
 import VSpacer from "@/components/v-spacer/v-spacer";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import CopyToClipboard from "@/components/clipboard/copy-to-clipboard";
 import HSpacer from "@/components/h-spacer/h-spacer";
 import { ToastContainer } from "react-toastify";
 
 export default function Home() {
+  const [aiContent, setContent] = useState('')
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
   function reduce(event: MouseEvent) {
-    if (textareaRef.current) {
-    }
+
+      setContent('xxx')
   }
 
   return (
@@ -24,7 +26,7 @@ export default function Home() {
         <CopyToClipboard textareaRef={textareaRef} />
       </div>
       <VSpacer />
-      <Textarea ref={textareaRef} />
+      <Textarea ref={textareaRef} content={aiContent} />
 
       <VSpacer />
       <VSpacer />
