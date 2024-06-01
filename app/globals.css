@@ -26,6 +26,13 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;

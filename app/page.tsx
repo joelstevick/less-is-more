@@ -8,6 +8,7 @@ import { useRef, useState } from "react";
 import CopyToClipboard from "@/components/clipboard/copy-to-clipboard";
 import HSpacer from "@/components/h-spacer/h-spacer";
 import { ToastContainer } from "react-toastify";
+import Spinner from "@/components/spinner/spinner";
 
 export default function Home() {
   const [userContent, setUserContent] = useState("");
@@ -48,7 +49,7 @@ export default function Home() {
       <VSpacer />
       {aiResponse.length > 0 && <ScrollableText content={aiResponse} />}
 
-      {loading && <div>Loading...</div>}
+      {loading && <Spinner />}
       <ToastContainer
         position="top-right"
         autoClose={5000}
