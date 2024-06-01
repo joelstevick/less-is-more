@@ -1,4 +1,5 @@
 import React from 'react';
+import { toast } from 'react-toastify';
 
 interface CopyToClipboardProps {
   textareaRef: React.RefObject<HTMLTextAreaElement>;
@@ -9,8 +10,7 @@ const CopyToClipboard: React.FC<CopyToClipboardProps> = ({ textareaRef }) => {
     if (textareaRef.current) {
       textareaRef.current.select();
       document.execCommand('copy');
-      // Alternatively, you can use the Clipboard API:
-      // navigator.clipboard.writeText(textareaRef.current.value);
+      toast.success('Text copied to clipboard!');
     }
   };
 

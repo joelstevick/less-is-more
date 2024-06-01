@@ -7,6 +7,7 @@ import VSpacer from "@/components/v-spacer/v-spacer";
 import { useRef } from "react";
 import CopyToClipboard from "@/components/clipboard/copy-to-clipboard";
 import HSpacer from "@/components/h-spacer/h-spacer";
+import { ToastContainer } from "react-toastify";
 
 export default function Home() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -30,6 +31,9 @@ export default function Home() {
       </div>
       <VSpacer />
       <ScrollableText />
+
+      <ToastContainer />
+
     </main>
   );
 }
