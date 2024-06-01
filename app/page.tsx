@@ -32,7 +32,7 @@ export default function Home() {
       <VSpacer />
       <ScrollableText />
 
-      <ToastContainer />
+      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} />
 
     </main>
   );
