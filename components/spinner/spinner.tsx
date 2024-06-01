@@ -5,7 +5,7 @@ import { ClipLoader } from 'react-spinners';
 const Spinner = () => {
   return (
     <div style={styles.spinnerContainer}>
-      <ClipLoader color={"#123abc"} loading={true} size={150} />
+      <ClipLoader color={"#ffffcc"} loading={true} size={50} />
     </div>
   );
 };
@@ -15,7 +15,6 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100vh',
   },
 };
 
