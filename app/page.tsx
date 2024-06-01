@@ -12,7 +12,8 @@ import { ToastContainer } from "react-toastify";
 export default function Home() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   function reduce(event: MouseEvent) {
-    console.log("Reduce")
+    if (textareaRef.current) {
+    }
   }
 
   return (

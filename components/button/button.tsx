@@ -6,7 +6,7 @@ const Button = ({
   onClick,
 }: {
   children: any;
-  onClick: Function;
+  onClick?: Function;
 }) => {
   return (
     <button
