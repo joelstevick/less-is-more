@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
       'https://api.openai.com/v1/chat/completions',
       {
         model: "gpt-3.5-turbo",
-        messages: [{"role": "user", "content": "what is an apple?"}]
+        messages: [{"role": "user", "content": prompt}]
       },
       {
         headers: {
@@ -23,8 +23,6 @@ export async function POST(req: NextRequest) {
         },
       }
     );
-
-    console.log("AXIOS response", JSON.stringify(response.data.choices, null, 2))
 
     return NextResponse.json(response.data.choices[0].message.content, { status: 200 });
   } catch (error) {

@@ -21,7 +21,7 @@ export default function Home() {
   async function getAiResponse(event: MouseEvent) {
     setLoading(true);
 
-    const res = await axios.post("/api/openai", { prompt: "what is an apple" });
+    const res = await axios.post("/api/openai", { prompt: textareaRef.current?.value ?? '' });
 
     setLoading(false)
     
