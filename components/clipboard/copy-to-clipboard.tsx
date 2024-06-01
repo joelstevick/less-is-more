@@ -1,6 +1,6 @@
-import React from 'react';
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface CopyToClipboardProps {
   textareaRef: React.RefObject<HTMLTextAreaElement>;
@@ -10,8 +10,8 @@ const CopyToClipboard: React.FC<CopyToClipboardProps> = ({ textareaRef }) => {
   const handleCopyClick = () => {
     if (textareaRef.current) {
       textareaRef.current.select();
-      document.execCommand('copy');
-      toast.success('Text copied to clipboard!');
+      document.execCommand("copy");
+      toast.success("Text copied to clipboard!");
     }
   };
 
