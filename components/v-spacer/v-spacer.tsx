@@ -1,10 +1,10 @@
 // components/Button.js
 import React from "react";
 
-const HSpacer = () => {
+const VSpacer = () => {
   return (
    <div className="h-4"></div>
   );
 };
 
-export default HSpacer;
+export default VSpacer;
