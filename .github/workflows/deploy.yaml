@@ -43,7 +43,7 @@ jobs:
 
       - name: Configure kubectl
         run: |
-          gcloud container clusters get-credentials less-is-more --zone uscentral-1 
+          gcloud container clusters get-credentials less-is-more --zone uscentral-1
 
       - name: Deploy to GKE
         run: |
