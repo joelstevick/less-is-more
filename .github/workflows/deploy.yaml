@@ -50,6 +50,10 @@ jobs:
         run: |
           gcloud container clusters get-credentials less-is-more --zone us-central1
 
+      - name: Create Kubernetes Secret
+        run: |
+          kubectl create secret generic openai-api-key --from-literal=OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
+
       - name: Deploy to GKE
         run: |
           kubectl apply -f k8s/deployment.yaml

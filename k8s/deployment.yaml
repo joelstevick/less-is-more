@@ -20,3 +20,9 @@ spec:
         image: joelstevick/less-is-more:latest
         ports:
         - containerPort: 3000
+        env:
+        - name: OPENAI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: openai-api-key
+              key: OPENAI_API_KEY
