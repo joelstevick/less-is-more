@@ -20,6 +20,8 @@ function convertTextToHtml(text: string) {
 export default function Home() {
   const [userContent, setUserContent] = useState("");
   const [aiSummary, setAiSummary] = useState("");
+  const [aiSummaryText, setAiSummaryText] = useState("");
+
   const [aiPoll, setAiPoll] = useState("");
 
   const [loading, setLoading] = useState(false);
@@ -38,12 +40,13 @@ export default function Home() {
     setLoading(false);
 
     setAiSummary(convertTextToHtml(res.data.summary));
+    setAiSummaryText(res.data.summary);
+
     setAiPoll(convertTextToHtml(res.data.pollChoices));
   }
 
   function use(event: MouseEvent) {
-    setUserContent(aiSummary);
-
+    setUserContent(aiSummaryText);
     setAiSummary("");
     setAiPoll("");
   }
