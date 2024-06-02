@@ -33,6 +33,8 @@ export default function Home() {
     setLoading(false)
     
     setAiResponse(convertTextToHtml(res.data.summary));
+
+    console.log("XXX", res.data.pollChoices)
   }
 
   function use(event: MouseEvent) {
