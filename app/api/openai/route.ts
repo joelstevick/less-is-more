@@ -11,8 +11,8 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const requestForSummary = `rewrite this text to remove redundant thoughts and make it simpler and more hard hitting.  Express any bullet point items using a hyphen and the bullet point text should be terminated with 2 newlines.  Don't throw away the dramatic points.  Your cleaned up text can be as brief as possible. Here is the text: ${prompt}`;
-  const requestForPoll = `I want to poll users about what they think of a piece of text.  Give me 3 poll question along with 3 choices. The poll questions should not use generic words like "protagonist" to refer to the text author, but should use I. Here is the text: ${prompt}`;
+  const requestForSummary = `rewrite this text to remove redundant thoughts and make it simpler and more hard hitting.  Express any bullet point items using a hyphen and the bullet point text should be terminated with 2 newlines.  Don't throw away the dramatic points. Here is the text: ${prompt}`;
+  const requestForPoll = `I want to poll users about what they think of a piece of text.  Give me 1 poll question along with 3 choices. The poll questions should not use generic words like "protagonist" to refer to the text author, but should use I. Here is the text: ${prompt}`;
 
   try {
     const summaryRes = await axios.post(

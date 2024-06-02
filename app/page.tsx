@@ -71,6 +71,7 @@ export default function Home() {
       {aiSummary.length > 0 && (
         <>
           <VSpacer />
+          <div className="text-blue-500 text-2xl">Summary</div>
           <ScrollableText content={aiSummary} />
         </>
       )}
