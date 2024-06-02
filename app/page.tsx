@@ -45,11 +45,12 @@ export default function Home() {
     setUserContent(aiSummary);
 
     setAiSummary("");
-    setAiPoll("")
+    setAiPoll("");
   }
 
   return (
     <main className="p-16">
+      <div className="text-blue-500 text-4xl text-center mb-16">Am I Wrong?</div>
       <div className="flex justify-end">
         <Button onClick={getAiResponse}>Get AI Assitance</Button>
         <HSpacer />
