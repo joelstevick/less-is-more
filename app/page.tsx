@@ -45,6 +45,7 @@ export default function Home() {
     setUserContent(aiSummary);
 
     setAiSummary("");
+    setAiPoll("")
   }
 
   return (
@@ -76,7 +77,7 @@ export default function Home() {
       {aiPoll.length > 0 && (
         <>
           <VSpacer />
-          <div>Poll choices</div>
+          <div className="text-blue-500 text-2xl">Poll choices</div>
           <ScrollableText content={aiPoll} />
         </>
       )}
