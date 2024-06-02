@@ -1,34 +1,24 @@
-# Stage 1: Build the Next.js application
-FROM node:16-alpine AS builder
+# Use the official Node.js 14 image.
+FROM node:14
 
-# Set the working directory
-WORKDIR /app
+# Create and change to the app directory.
+WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json
-COPY package.json package-lock.json ./
+# Copy application dependency manifests to the container image.
+# A wildcard is used to ensure both package.json AND package-lock.json are copied.
+COPY package*.json ./
 
-# Install dependencies
+# Install dependencies.
 RUN npm install
 
-# Copy the rest of the application code
+# Copy local code to the container image.
 COPY . .
 
-# Build the Next.js application
+# Build the Next.js application.
 RUN npm run build
 
-# Install serve for the final stage
-RUN npm install -g serve
+# Expose port 3000 to the outside world.
+EXPOSE 3000
 
-# Stage 2: Serve the application with Nginx
-FROM nginx:alpine
-
-# Copy the built application from the previous stage
-COPY --from=builder /app/.next /usr/share/nginx/html
-COPY --from=builder /app/public /usr/share/nginx/html
-COPY --from=builder /app/nginx.conf /etc/nginx/conf.d/default.conf
-
-# Expose port 80
-EXPOSE 80
-
-# Start Nginx server
-CMD ["nginx", "-g", "daemon off;"]
+# Run the web service on container startup.
+CMD [ "npm", "start" ]
