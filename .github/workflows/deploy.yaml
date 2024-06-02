@@ -24,8 +24,8 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t your-dockerhub-username/nextjs-app:latest .
-          docker push your-dockerhub-username/nextjs-app:latest
+          docker build -t joelstevick/less-is-more:latest .
+          docker push joelstevick/less-is-more:latest
 
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
@@ -42,7 +42,7 @@ jobs:
 
       - name: Configure kubectl
         run: |
-          gcloud container clusters get-credentials <cluster-name> --zone <cluster-zone>
+          gcloud container clusters get-credentials less-is-more --zone uscentral-1
 
       - name: Deploy to GKE
         run: |
