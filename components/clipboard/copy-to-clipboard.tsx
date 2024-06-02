@@ -11,6 +11,7 @@ const CopyToClipboard: React.FC<CopyToClipboardProps> = ({ textareaRef }) => {
     if (textareaRef.current) {
       textareaRef.current.select();
       document.execCommand("copy");
+      textareaRef.current.blur();
       toast.success("Text copied to clipboard!");
     }
   };
