@@ -50,7 +50,9 @@ export default function Home() {
 
   return (
     <main className="p-16">
-      <div className="text-blue-500 text-4xl text-center mb-16">Am I Wrong?</div>
+      <div className="text-blue-500 text-4xl text-center mb-16">
+        Am I Wrong?
+      </div>
       <div className="flex justify-end">
         <Button onClick={getAiResponse}>Get AI Assitance</Button>
         <HSpacer />
@@ -64,15 +66,12 @@ export default function Home() {
       <VSpacer />
 
       {aiSummary.length > 0 && (
-        <div className="flex justify-end">
-          <Button onClick={use}>Use</Button>
-        </div>
-      )}
-
-      {aiSummary.length > 0 && (
         <>
           <VSpacer />
-          <div className="text-blue-500 text-2xl">Summary</div>
+          <div className="flex justify-between items-end w-full pb-1">
+            <div className="text-blue-500 text-2xl">Summary</div>
+            <Button onClick={use}>Use</Button>
+          </div>
           <ScrollableText content={aiSummary} />
         </>
       )}
