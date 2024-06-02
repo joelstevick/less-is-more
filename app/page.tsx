@@ -12,35 +12,39 @@ import Spinner from "@/components/spinner/spinner";
 import axios from "axios";
 
 function convertTextToHtml(text: string) {
-  let html = text.replaceAll('\n', '<br><br>')
+  let html = text.replaceAll("\n", "<br>");
 
-  return html
+  return html;
 }
 
 export default function Home() {
   const [userContent, setUserContent] = useState("");
-  const [aiResponse, setAiResponse] = useState("");
+  const [aiSummary, setAiSummary] = useState("");
+  const [aiPoll, setAiPoll] = useState("");
+
   const [loading, setLoading] = useState(false);
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   async function getAiResponse(event: MouseEvent) {
-    setAiResponse('')
+    setAiSummary("");
+    setAiPoll("");
     setLoading(true);
 
-    const res = await axios.post("/api/openai", { prompt: textareaRef.current?.value ?? '' });
+    const res = await axios.post("/api/openai", {
+      prompt: textareaRef.current?.value ?? "",
+    });
 
-    setLoading(false)
-    
-    setAiResponse(convertTextToHtml(res.data.summary));
+    setLoading(false);
 
-    console.log("XXX", res.data.pollChoices)
+    setAiSummary(convertTextToHtml(res.data.summary));
+    setAiPoll(convertTextToHtml(res.data.pollChoices));
   }
 
   function use(event: MouseEvent) {
-    setUserContent(aiResponse);
+    setUserContent(aiSummary);
 
-    setAiResponse("");
+    setAiSummary("");
   }
 
   return (
@@ -57,13 +61,25 @@ export default function Home() {
       <VSpacer />
       <VSpacer />
 
-      {aiResponse.length > 0 && (
+      {aiSummary.length > 0 && (
         <div className="flex justify-end">
           <Button onClick={use}>Use</Button>
         </div>
       )}
-      <VSpacer />
-      {aiResponse.length > 0 && <ScrollableText content={aiResponse} />}
+
+      {aiSummary.length > 0 && (
+        <>
+          <VSpacer />
+          <ScrollableText content={aiSummary} />
+        </>
+      )}
+      {aiPoll.length > 0 && (
+        <>
+          <VSpacer />
+          <div>Poll choices</div>
+          <ScrollableText content={aiPoll} />
+        </>
+      )}
 
       {loading && <Spinner />}
       <ToastContainer
