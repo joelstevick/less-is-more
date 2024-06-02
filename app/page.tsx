@@ -13,7 +13,6 @@ import axios from "axios";
 
 function convertTextToHtml(text: string) {
   let html = text.replaceAll("\n", "<br>");
-
   return html;
 }
 
@@ -21,14 +20,11 @@ export default function Home() {
   const [userContent, setUserContent] = useState("");
   const [aiSummary, setAiSummary] = useState("");
   const [aiSummaryText, setAiSummaryText] = useState("");
-
   const [aiPoll, setAiPoll] = useState("");
-
   const [loading, setLoading] = useState(false);
-
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  async function getAiResponse(event: MouseEvent) {
+  async function getAiResponse() {
     setAiSummary("");
     setAiPoll("");
     setLoading(true);
@@ -38,14 +34,12 @@ export default function Home() {
     });
 
     setLoading(false);
-
     setAiSummary(convertTextToHtml(res.data.summary));
     setAiSummaryText(res.data.summary);
-
     setAiPoll(convertTextToHtml(res.data.pollChoices));
   }
 
-  function use(event: MouseEvent) {
+  function use() {
     setUserContent(aiSummaryText);
     setAiSummary("");
     setAiPoll("");
@@ -53,17 +47,18 @@ export default function Home() {
 
   return (
     <main className="p-16">
-      <div className="text-blue-500 text-4xl text-center mb-16">
-        Am I Wrong?
-      </div>
+      <div className="text-blue-500 text-4xl text-center mb-16">Am I Wrong?</div>
       <div className="flex justify-end">
-        <Button onClick={getAiResponse}>Get AI Assitance</Button>
+        <Button onClick={getAiResponse}>Get AI Assistance</Button>
         <HSpacer />
         <CopyToClipboard textareaRef={textareaRef} />
       </div>
       <VSpacer />
-      <Textarea ref={textareaRef} content={userContent} />
-
+      <Textarea
+        ref={textareaRef}
+        value={userContent}
+        onChange={(e) => setUserContent(e.target.value)}
+      />
       <VSpacer />
       <VSpacer />
       <VSpacer />
@@ -83,18 +78,12 @@ export default function Home() {
           <VSpacer />
           <VSpacer />
           <VSpacer />
-
           <div className="text-blue-500 text-2xl">Poll choices</div>
           <ScrollableText content={aiPoll} />
         </>
       )}
-
       {loading && <Spinner />}
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        hideProgressBar={false}
-      />
+      <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} />
     </main>
   );
 }
