@@ -32,8 +32,7 @@ export default function Home() {
 
     setLoading(false)
     
-    console.log("XXX", res.data)
-    setAiResponse(convertTextToHtml(res.data));
+    setAiResponse(convertTextToHtml(res.data.summary));
   }
 
   function use(event: MouseEvent) {

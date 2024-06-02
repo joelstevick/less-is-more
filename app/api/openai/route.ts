@@ -27,9 +27,12 @@ export async function POST(req: NextRequest) {
       }
     );
 
-    return NextResponse.json(response.data.choices[0].message.content, {
-      status: 200,
-    });
+    return NextResponse.json(
+      { summary: response.data.choices[0].message.content },
+      {
+        status: 200,
+      }
+    );
   } catch (error) {
     console.error(error);
     return NextResponse.json(
