@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
   }
 
   const requestForSummary = `rewrite my story to remove redundant thoughts and make it simpler and more hard hitting.  Express any bullet point items using a hyphen and the bullet point text should be terminated with 2 newlines.  Don't throw away the dramatic points. Here is the text: ${prompt}`;
-  const requestForPoll = `I want to ask readers about what they think of my story.  Give me a poll question along with 3 choices to ask readers about my story. The poll question should be written as coming from me in the first-person and asking the reader their opinion about a specific aspect of my story. Use proper grammar, especially when using the noun "I".  Here is the text: ${prompt}`;
+  const requestForPoll = `I want to ask readers about what they think of my story.  Give me a poll question along with 3 choices to ask readers about my story. Keep the question to 12 words or less and keep each choice to 5 words or less. The poll question should be written as coming from me in the first-person and asking the reader their opinion about a specific aspect of my story. Use proper grammar, especially when using the noun "I".  Here is the text: ${prompt}`;
 
   try {
     const summaryRes = await axios.post(
