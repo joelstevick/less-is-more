@@ -21,7 +21,7 @@ RUN npm run build
 FROM nginx:latest
 
 # Copy built application from the previous stage to NGINX image.
-COPY --from=build /usr/src/app/build /usr/share/nginx/html
+COPY --from=build /usr/src/app/.next /usr/share/nginx/html
 
 # Expose port 80 to the outside world.
 EXPOSE 80
