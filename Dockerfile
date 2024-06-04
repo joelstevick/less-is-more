@@ -1,5 +1,5 @@
-# Use the official Node.js 14 image.
-FROM node:14
+# Use the official Node.js 14 image for building the app.
+FROM node:14 AS build
 
 # Create and change to the app directory.
 WORKDIR /usr/src/app
@@ -17,8 +17,13 @@ COPY . .
 # Build the Next.js application.
 RUN npm run build
 
-# Expose port 3000 to the outside world.
-EXPOSE 3000
+# Use NGINX official image for serving the application.
+FROM nginx:latest
 
-# Run the web service on container startup.
-CMD [ "npm", "start" ]
+# Copy built application from the previous stage to NGINX image.
+COPY --from=build /usr/src/app/build /usr/share/nginx/html
+
+# Expose port 80 to the outside world.
+EXPOSE 80
+
+# NGINX is already started within the container, no need for CMD instruction.
