@@ -16,8 +16,11 @@ RUN node -v && npm -v
 # Copy local code to the container image.
 COPY . .
 
-# Build the Next.js application.
-RUN npm run build
+# Print current directory and its contents for debugging
+RUN echo "Current directory contents:" && ls -la
+
+# Build the Next.js application with verbose output for debugging
+RUN npm run build --verbose
 
 # Use NGINX official image for serving the application.
 FROM nginx:latest
