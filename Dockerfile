@@ -32,6 +32,9 @@ RUN rm -rf /usr/share/nginx/html/*
 COPY --from=build /usr/src/app/.next /usr/share/nginx/html/_next
 COPY --from=build /usr/src/app/public /usr/share/nginx/html
 
+# Add custom error pages
+COPY error_pages /usr/share/nginx/html
+
 # Copy custom NGINX configuration
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
