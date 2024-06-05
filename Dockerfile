@@ -1,15 +1,17 @@
-# Use the official Node.js 14 image for building the app.
-FROM node:14 AS build
+# Use the official Node.js 18 alpine image for building the app.
+FROM node:18-alpine AS build
 
 # Create and change to the app directory.
 WORKDIR /usr/src/app
 
 # Copy application dependency manifests to the container image.
-# A wildcard is used to ensure both package.json AND package-lock.json are copied.
 COPY package*.json ./
 
-# Install dependencies.
-RUN npm install
+# Clean npm cache and install dependencies.
+RUN npm cache clean --force && npm install
+
+# Verify Node.js and npm versions
+RUN node -v && npm -v
 
 # Copy local code to the container image.
 COPY . .
@@ -25,5 +27,3 @@ COPY --from=build /usr/src/app/.next /usr/share/nginx/html
 
 # Expose port 80 to the outside world.
 EXPOSE 80
-
-# NGINX is already started within the container, no need for CMD instruction.
