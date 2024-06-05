@@ -1,5 +1,5 @@
-# Use the official Node.js 14 image.
-FROM node:14
+# Use the official Node.js 16 image.
+FROM node:16
 
 # Create and change to the app directory.
 WORKDIR /usr/src/app
@@ -8,10 +8,8 @@ WORKDIR /usr/src/app
 # A wildcard is used to ensure both package.json AND package-lock.json are copied.
 COPY package*.json ./
 
-# Update npm to the latest stable version
-RUN npm install -g npm@latest
-
-# Install dependencies.
+# Clear npm cache and install dependencies
+RUN npm cache clean --force
 RUN npm install
 
 # Copy local code to the container image.
