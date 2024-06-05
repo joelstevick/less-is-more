@@ -8,6 +8,9 @@ WORKDIR /usr/src/app
 # A wildcard is used to ensure both package.json AND package-lock.json are copied.
 COPY package*.json ./
 
+# Update npm to the latest stable version
+RUN npm install -g npm@latest
+
 # Install dependencies.
 RUN npm install
 
