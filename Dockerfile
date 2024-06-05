@@ -26,7 +26,11 @@ FROM nginx:latest
 RUN rm -rf /usr/share/nginx/html/*
 
 # Copy built application from the previous stage to NGINX image.
-COPY --from=build /usr/src/app/.next /usr/share/nginx/html
+COPY --from=build /usr/src/app/.next /usr/share/nginx/html/_next
+COPY --from=build /usr/src/app/public /usr/share/nginx/html
+
+# Copy custom NGINX configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expose port 80 to the outside world.
 EXPOSE 80
