@@ -1,5 +1,5 @@
-# Use the official Node.js 18 alpine image for building the app.
-FROM node:18-alpine AS build
+# Use the official Node.js 18 image for building the app.
+FROM --platform=linux/amd64 node:18-alpine AS build
 
 # Create and change to the app directory.
 WORKDIR /usr/src/app
@@ -21,6 +21,9 @@ RUN npm run build
 
 # Use NGINX official image for serving the application.
 FROM nginx:latest
+
+# Remove the default nginx static files
+RUN rm -rf /usr/share/nginx/html/*
 
 # Copy built application from the previous stage to NGINX image.
 COPY --from=build /usr/src/app/.next /usr/share/nginx/html
