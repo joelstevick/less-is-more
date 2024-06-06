@@ -9,10 +9,14 @@ export enum SelectedTab {
 export interface IGlobalContext {
   isAuthenticated: boolean;
   selectedTab: SelectedTab;
+  setIsAuthenticated: (isAuthenticated: boolean) => void;
+  setSelectedTab: (selectedTab: SelectedTab) => void;
 }
-const GlobalContext = createContext({
+const GlobalContext = createContext<IGlobalContext>({
   isAuthenticated: false,
-  selectedTab: "home",
+  selectedTab: SelectedTab.home,
+  setIsAuthenticated: () => {},
+  setSelectedTab: () => {},
 });
 
 function GlobalContextProvider({ children }: { children: any }) {
@@ -30,6 +34,8 @@ function GlobalContextProvider({ children }: { children: any }) {
   const globalContext = {
     isAuthenticated,
     selectedTab,
+    setIsAuthenticated: setIsAuthenticatedHandler,
+    setSelectedTab: setSelectedTabHandler,
   };
 
   return (
