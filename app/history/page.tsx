@@ -4,5 +4,6 @@ export default async function HistoryPage() {
   const supabase = createClient();
   const { data: history } = await supabase.from("history").select();
 
-  return <pre>{JSON.stringify(history, null, 2)}</pre>
+  
+  return <main className="p-16 h-screen">{JSON.stringify(history, null, 2)}</main>
 }

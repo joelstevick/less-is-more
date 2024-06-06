@@ -46,7 +46,7 @@ export default function Home() {
   }
 
   return (
-    <main className="p-16">
+    <main className="p-16 h-screen">
       <div className="text-blue-500 text-4xl text-center mb-16">Am I Wrong?</div>
       <div className="flex justify-end">
         <Button onClick={getAiResponse}>Get AI Assistance</Button>
