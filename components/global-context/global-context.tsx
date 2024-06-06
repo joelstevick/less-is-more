@@ -12,14 +12,14 @@ export interface IGlobalContext {
   setIsAuthenticated: (isAuthenticated: boolean) => void;
   setSelectedTab: (selectedTab: SelectedTab) => void;
 }
-const GlobalContext = createContext<IGlobalContext>({
+export const GlobalContext = createContext<IGlobalContext>({
   isAuthenticated: false,
   selectedTab: SelectedTab.home,
   setIsAuthenticated: () => {},
   setSelectedTab: () => {},
 });
 
-function GlobalContextProvider({ children }: { children: any }) {
+export function GlobalContextProvider({ children }: { children: any }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [selectedTab, setSelectedTab] = useState(SelectedTab.home);
 
@@ -41,4 +41,5 @@ function GlobalContextProvider({ children }: { children: any }) {
   return (
     <GlobalContext.Provider value={globalContext}>{}</GlobalContext.Provider>
   );
+
 }
