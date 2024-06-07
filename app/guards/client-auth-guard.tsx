@@ -3,7 +3,7 @@
 import { useEffect, ReactNode, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Spinner from '@/components/spinner/spinner';
-import { supabase } from '../supabase/utils/create-client';
+import { supabase } from '../supabase/utils/server';
 
 interface ClientAuthGuardProps {
   children: ReactNode;
