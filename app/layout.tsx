@@ -22,10 +22,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <GlobalContextProvider>
-          <Nav></Nav>
-          {children}
-        </GlobalContextProvider>
+        <Nav></Nav>
+        {children}
       </body>
     </html>
   );

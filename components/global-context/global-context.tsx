@@ -1,4 +1,4 @@
-// contexts/GlobalContext.js
+"use client"
 import { createContext, useContext, useState } from "react";
 
 export enum SelectedTab {
