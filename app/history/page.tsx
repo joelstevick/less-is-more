@@ -1,4 +1,4 @@
-import { supabase } from "../supabase/utils/server";
+import { supabase } from "../supabase/server";
 
 export default async function HistoryPage() {
   const { data: history } = await supabase.from("history").select();
