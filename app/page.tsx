@@ -49,7 +49,7 @@ export default function Home() {
     <main className="p-16 h-screen">
       <div className="text-blue-500 text-4xl text-center mb-16">Am I Wrong?</div>
       <div className="flex justify-end">
-        <Button onClick={getAiResponse}>Get AI Assistanxce</Button>
+        <Button onClick={getAiResponse}>Get AI Assistance</Button>
         <HSpacer />
         <CopyToClipboard textareaRef={textareaRef} />
       </div>
