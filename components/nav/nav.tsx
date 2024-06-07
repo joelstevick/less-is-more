@@ -21,6 +21,12 @@ const Nav = () => {
         >
           <Link href="/history">History</Link>
         </li>
+        <li><HSpacer /></li>
+        <li
+          className={`hover:text-blue-100 ${pathname === '/login' ? 'text-white' : ''}`}
+        >
+          <Link href="/login">Login</Link>
+        </li>
       </ul>
     </nav>
   );
