@@ -1,17 +1,18 @@
-// components/Button.js
-import React from "react";
+// components/button/button.tsx
+import React from 'react';
 
-const Button = ({
-  children,
-  onClick,
-}: {
-  children: any;
-  onClick?: Function;
-}) => {
+interface ButtonProps {
+  children: React.ReactNode;
+  onClick: () => void;
+  disabled?: boolean;
+}
+
+const Button: React.FC<ButtonProps> = ({ children, onClick, disabled = false }) => {
   return (
     <button
-      className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-      onClick={onClick as any}
+      onClick={onClick}
+      disabled={disabled}
+      className={`py-2 px-4 bg-blue-500 text-white rounded ${disabled ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-700'}`}
     >
       {children}
     </button>
