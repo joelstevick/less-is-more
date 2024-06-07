@@ -9,15 +9,15 @@ const Nav = () => {
 
   return (
     <nav className="flex justify-end bg-blue-500 py-4 px-6 text-2xl">
-      <ul className="flex space-x-4 text-white">
+      <ul className="flex space-x-4 text-blue-300">
         <li
-          className={`hover:text-blue-100 ${pathname === '/' ? 'text-blue-300' : ''}`}
+          className={`hover:text-blue-100 ${pathname === '/' ? 'text-white' : ''}`}
         >
           <Link href="/">Home</Link>
         </li>
         <li><HSpacer /></li>
         <li
-          className={`hover:text-blue-100 ${pathname === '/history' ? 'text-blue-300' : ''}`}
+          className={`hover:text-blue-100 ${pathname === '/history' ? 'text-white' : ''}`}
         >
           <Link href="/history">History</Link>
         </li>
