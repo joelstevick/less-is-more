@@ -17,7 +17,6 @@ const ClientAuthGuard = ({ children }: ClientAuthGuardProps) => {
   useEffect(() => {
     const checkUser = async () => {
       const { data, error } = await supabase.auth.getSession();
-      console.log("XXX", data, error)
       if (error || !data.session) {
         router.push('/login');
       } else {
