@@ -10,6 +10,7 @@ import HSpacer from "@/components/h-spacer/h-spacer";
 import { ToastContainer } from "react-toastify";
 import Spinner from "@/components/spinner/spinner";
 import axios from "axios";
+import ClientAuthGuard from "./guards/client-auth-guard";
 
 function convertTextToHtml(text: string) {
   let html = text.replaceAll("\n", "<br>");
@@ -46,44 +47,52 @@ export default function Home() {
   }
 
   return (
-    <main className="p-16 h-screen">
-      <div className="text-blue-500 text-4xl text-center mb-16">Am I Wrong?</div>
-      <div className="flex justify-end">
-        <Button onClick={getAiResponse}>Get AI Assistance</Button>
-        <HSpacer />
-        <CopyToClipboard textareaRef={textareaRef} />
-      </div>
-      <VSpacer />
-      <Textarea
-        ref={textareaRef}
-        value={userContent}
-        onChange={(e) => setUserContent(e.target.value)}
-      />
-      <VSpacer />
-      <VSpacer />
-      <VSpacer />
+    <ClientAuthGuard>
+      <main className="p-16 h-screen">
+        <div className="text-blue-500 text-4xl text-center mb-16">
+          Am I Wrong?
+        </div>
+        <div className="flex justify-end">
+          <Button onClick={getAiResponse}>Get AI Assistance</Button>
+          <HSpacer />
+          <CopyToClipboard textareaRef={textareaRef} />
+        </div>
+        <VSpacer />
+        <Textarea
+          ref={textareaRef}
+          value={userContent}
+          onChange={(e) => setUserContent(e.target.value)}
+        />
+        <VSpacer />
+        <VSpacer />
+        <VSpacer />
 
-      {aiSummary.length > 0 && (
-        <>
-          <VSpacer />
-          <div className="flex justify-between items-end w-full pb-1">
-            <div className="text-blue-500 text-2xl">Summary</div>
-            <Button onClick={use}>Use</Button>
-          </div>
-          <ScrollableText content={aiSummary} />
-        </>
-      )}
-      {aiPoll.length > 0 && (
-        <>
-          <VSpacer />
-          <VSpacer />
-          <VSpacer />
-          <div className="text-blue-500 text-2xl">Poll choices</div>
-          <ScrollableText content={aiPoll} />
-        </>
-      )}
-      {loading && <Spinner />}
-      <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} />
-    </main>
+        {aiSummary.length > 0 && (
+          <>
+            <VSpacer />
+            <div className="flex justify-between items-end w-full pb-1">
+              <div className="text-blue-500 text-2xl">Summary</div>
+              <Button onClick={use}>Use</Button>
+            </div>
+            <ScrollableText content={aiSummary} />
+          </>
+        )}
+        {aiPoll.length > 0 && (
+          <>
+            <VSpacer />
+            <VSpacer />
+            <VSpacer />
+            <div className="text-blue-500 text-2xl">Poll choices</div>
+            <ScrollableText content={aiPoll} />
+          </>
+        )}
+        {loading && <Spinner />}
+        <ToastContainer
+          position="top-right"
+          autoClose={2000}
+          hideProgressBar={false}
+        />
+      </main>
+    </ClientAuthGuard>
   );
 }
