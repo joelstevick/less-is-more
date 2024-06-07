@@ -1,5 +1,5 @@
 // contexts/GlobalContext.js
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 export enum SelectedTab {
   home = "home",
@@ -43,3 +43,6 @@ export function GlobalContextProvider({ children }: { children: any }) {
   );
 
 }
+
+export const useGlobalContext = () => useContext(GlobalContext);
+
