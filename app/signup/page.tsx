@@ -4,26 +4,18 @@ import React, { useState } from "react";
 import VSpacer from "@/components/v-spacer/v-spacer";
 import Button from "@/components/button/button";
 import Spinner from "@/components/spinner/spinner";
+import { ToastContainer, toast } from "react-toastify";
 import { supabase } from "../supabase/client";
-import { useRouter } from "next/navigation";
 
-export default function Login() {
+export default function SignUp() {
   const [email, setEmail] = useState("");
-  const [loginFailure, setLoginFailure] = useState(false);
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
-  function handleSignUp() {
-    router.push('/signup');
-  }
-
-  async function handleLogin() {
+  async function handleSignUp() {
     setLoading(true);
-    setLoginFailure(false);
-
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { error} = await supabase.auth.signUp({
         email,
         password,
       });
@@ -31,25 +23,22 @@ export default function Login() {
       setLoading(false);
 
       if (error) {
-        setLoginFailure(true);
+        toast.error(error.message);
       } else {
-        router.push('/'); // or any route you want to redirect after successful login
+        toast.success("Sign up successful! Please check your email to confirm your account.");
       }
     } catch (error) {
       setLoading(false);
-      setLoginFailure(true);
+      toast.error("An error occurred. Please try again.");
     }
   }
 
   return (
     <main className="p-16 h-screen flex flex-col items-center justify-center">
-      <div className="text-blue-500 text-4xl text-center mb-16">Login</div>
+      <div className="text-blue-500 text-4xl text-center mb-16">Sign Up</div>
       <div className="w-full max-w-md">
         <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="email"
-          >
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
             Email
           </label>
           <input
@@ -62,10 +51,7 @@ export default function Login() {
           />
         </div>
         <div className="mb-6">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="password"
-          >
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
             Password
           </label>
           <input
@@ -78,11 +64,8 @@ export default function Login() {
           />
         </div>
         <div className="flex items-center justify-between">
-          <Button onClick={handleLogin} disabled={loading}>
-            {loading ? "Logging in..." : "Login"}
-          </Button>
           <Button onClick={handleSignUp} disabled={loading}>
-            Sign Up
+            {loading ? "Signing up..." : "Sign Up"}
           </Button>
         </div>
         {loading && (
@@ -91,8 +74,7 @@ export default function Login() {
           </div>
         )}
       </div>
-
-      {loginFailure && <div className="text-red-500 text-xl">Login Failure</div>}
+      <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} />
     </main>
   );
 }
