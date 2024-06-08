@@ -29,6 +29,7 @@ const Nav = () => {
   }, []);
 
   return (
+    isLoggedIn &&
     <nav className="flex justify-end bg-blue-500 py-4 px-6 text-2xl">
       <ul className="flex space-x-4 text-blue-300">
         <li
@@ -46,8 +47,8 @@ const Nav = () => {
         <li
           className={`hover:text-blue-100 ${pathname === '/login' ? 'text-white' : ''}`}
         >
-          <Link href={isLoggedIn ? "/logout" : "/login"}>
-            {isLoggedIn ? "Logout" : "Login"}
+          <Link href={"/logout"}>
+            {"Logout"}
           </Link>
         </li>
       </ul>
