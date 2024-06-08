@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import axios from "axios";
 import VSpacer from "@/components/v-spacer/v-spacer";
 import Button from "@/components/button/button";
+import Spinner from "@/components/spinner/spinner";
 import { ToastContainer, toast } from "react-toastify";
+import { supabase } from "../supabase/client";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -14,17 +15,17 @@ export default function Login() {
   async function handleLogin() {
     setLoading(true);
     try {
-      const response = await axios.post("/api/login", {
+      const { error} = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
       setLoading(false);
 
-      if (response.data.success) {
-        toast.success("Login successful!");
-      } else {
+      if (error) {
         toast.error("Invalid email or password.");
+      } else {
+        toast.success("Login successful!");
       }
     } catch (error) {
       setLoading(false);
@@ -67,6 +68,11 @@ export default function Login() {
             {loading ? "Logging in..." : "Login"}
           </Button>
         </div>
+        {loading && (
+          <div className="flex justify-center items-center mt-4">
+            <Spinner />
+          </div>
+        )}
       </div>
       <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} />
     </main>
