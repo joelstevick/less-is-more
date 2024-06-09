@@ -1,24 +1,29 @@
-// pages/api/login.ts
-import { setAuthCookies, supabase } from "@/app/utils/supabase/supabase";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from 'next/server';
+import { setAuthCookies, supabase } from '@/app/utils/supabase/supabase';
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
-  const { email, password } = req.body;
-  console.log("XXX", email)
+export async function POST(req: NextRequest) {
 
-  const {
-    data: { user, session },
-    error,
-  } = await supabase.auth.signInWithPassword({ email, password });
+  try {
+    const { email, password } = await req.json();
 
-  if (error) {
-    console.log("XXX", error, res);
-    return res.status(401).json({ error: error.message });
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+    if (error) {
+      console.log(error.message);
+      return NextResponse.json({ error: error.message }, { status: 401 });
+    }
+
+    const { user, session } = data;
+
+    if (session) {
+      const response = NextResponse.json({ user });
+      setAuthCookies(response, session.access_token, session.refresh_token);
+      return response;
+    }
+
+    return NextResponse.json({ user }, { status: 200 });
+  } catch (err) {
+    console.error('Failed to parse request body', err);
+    return NextResponse.json({ error: 'Failed to parse request body' }, { status: 400 });
   }
-
-  if (session) {
-    setAuthCookies(res, session.access_token, session.refresh_token);
-  }
-
-  res.status(200).json({ user });
 }
