@@ -6,6 +6,7 @@ import Button from "@/components/button/button";
 import Spinner from "@/components/spinner/spinner";
 import { supabase } from "../supabase/client";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -15,7 +16,7 @@ export default function Login() {
   const router = useRouter();
 
   function handleSignUp() {
-    router.push('/signup');
+    router.push("/signup");
   }
 
   async function handleLogin() {
@@ -23,18 +24,14 @@ export default function Login() {
     setLoginFailure(false);
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const res = await axios.post("/api/login", {
         email,
         password,
       });
 
       setLoading(false);
 
-      if (error) {
-        setLoginFailure(true);
-      } else {
-        router.push('/'); // or any route you want to redirect after successful login
-      }
+      router.push("/");
     } catch (error) {
       setLoading(false);
       setLoginFailure(true);
@@ -92,7 +89,9 @@ export default function Login() {
         )}
       </div>
 
-      {loginFailure && <div className="text-red-500 text-xl">Login Failure</div>}
+      {loginFailure && (
+        <div className="text-red-500 text-xl">Login Failure</div>
+      )}
     </main>
   );
 }

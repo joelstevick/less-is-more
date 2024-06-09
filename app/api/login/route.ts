@@ -2,8 +2,9 @@
 import { setAuthCookies, supabase } from "@/app/utils/supabase/supabase";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export async function login(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req: NextApiRequest, res: NextApiResponse) {
   const { email, password } = req.body;
+  console.log("XXX", email)
 
   const {
     data: { user, session },
@@ -11,6 +12,7 @@ export async function login(req: NextApiRequest, res: NextApiResponse) {
   } = await supabase.auth.signInWithPassword({ email, password });
 
   if (error) {
+    console.log("XXX", error, res);
     return res.status(401).json({ error: error.message });
   }
 
