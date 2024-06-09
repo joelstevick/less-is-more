@@ -1,6 +1,5 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
-import { parse, serialize } from 'cookie';
 
 const supabaseUrl: string = process.env.NEXT_PUBLIC_SUPABASE_URL as string;
 const supabaseKey: string = process.env.NEXT_PUBLIC_SUPABASE_KEY as string;
@@ -10,6 +9,7 @@ const authCookieName: string = `sb-${projectId}-auth-token`;
 const supabase: SupabaseClient = createClient(supabaseUrl, supabaseKey);
 
 const setAuthCookies = (res: NextResponse, accessToken: string, refreshToken: string) => {
+  console.log("XXX - setAuthCookies", accessToken )
   const options = {
     httpOnly: true,
     secure: process.env.NODE_ENV !== 'development',
@@ -27,7 +27,10 @@ const clearAuthCookies = (res: NextResponse) => {
 };
 
 const getAuthCookies = (req: NextRequest) => {
+  console.log("XXX - getAuthCookies" )
+
   const accessToken = req.cookies.get(authCookieName)?.value || '';
+
   const refreshToken = req.cookies.get(`${authCookieName}-refresh-token`)?.value || '';
   return { accessToken, refreshToken };
 };

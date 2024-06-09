@@ -1,26 +1,43 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-import { parse } from 'cookie';
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { parse } from "cookie";
 
 const authCookieName = `sb-${process.env.NEXT_PUBLIC_PROJECT_ID}-auth-token`;
 
+const protectedRoutes = ["/history"];
+
 export function middleware(request: NextRequest) {
-  const cookies = request.headers.get('cookie');
-  const parsedCookies = cookies ? parse(cookies) : {};
+  console.log("XXX");
 
-  const accessToken = parsedCookies[authCookieName];
-  const refreshToken = parsedCookies[`${authCookieName}-refresh-token`];
+  const cookies = request.headers.get("cookie");
 
-  if (accessToken && refreshToken) {
-    console.log('User is authenticated');
-  } else {
-    console.log('User is not authenticated');
+  if (!cookies) {
+    console.log('No cookies found');
+    return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  return NextResponse.next();
+  try {
+    const parsedCookies = parse(cookies);
+    const accessToken = parsedCookies[authCookieName];
+
+    if (!accessToken) {
+      for (const path of protectedRoutes) {
+        if (request.nextUrl.pathname.startsWith(path)) {
+          return NextResponse.redirect(new URL(path, request.url));
+        }
+      }
+      return NextResponse.redirect(new URL("/login", request.url));
+    } else {
+      console.log('User is authenticated');
+      return NextResponse.next();
+    }
+  } catch (error) {
+    console.error('Failed to parse cookies:', error);
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
 }
 
 // Specify paths where the middleware should run
 export const config = {
-  matcher: ['/', '/protected/:path*'], // Add paths you want to protect or log
+  matcher: ["/", "/protected/:path*"], // Add paths you want to protect or log
 };
