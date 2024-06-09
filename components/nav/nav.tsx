@@ -12,15 +12,19 @@ const Nav = () => {
 
   useEffect(() => {
     const checkUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       setIsLoggedIn(!!user);
     };
 
     checkUser();
 
-    const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-      setIsLoggedIn(!!session?.user);
-    });
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setIsLoggedIn(!!session?.user);
+      }
+    );
 
     // Cleanup the listener on component unmount
     return () => {
@@ -29,27 +33,34 @@ const Nav = () => {
   }, []);
 
   return (
-    isLoggedIn &&
     <nav className="flex justify-end bg-blue-500 py-4 px-6 text-2xl">
       <ul className="flex space-x-4 text-blue-300">
         <li
-          className={`hover:text-blue-100 ${pathname === '/' ? 'text-white' : ''}`}
+          className={`hover:text-blue-100 ${
+            pathname === "/" ? "text-white" : ""
+          }`}
         >
           <Link href="/">Home</Link>
         </li>
-        <li><HSpacer /></li>
+        <li>
+          <HSpacer />
+        </li>
         <li
-          className={`hover:text-blue-100 ${pathname === '/history' ? 'text-white' : ''}`}
+          className={`hover:text-blue-100 ${
+            pathname === "/history" ? "text-white" : ""
+          }`}
         >
           <Link href="/history">History</Link>
         </li>
-        <li><HSpacer /></li>
+        <li>
+          <HSpacer />
+        </li>
         <li
-          className={`hover:text-blue-100 ${pathname === '/login' ? 'text-white' : ''}`}
+          className={`hover:text-blue-100 ${
+            pathname === "/login" ? "text-white" : ""
+          }`}
         >
-          <Link href={"/logout"}>
-            {"Logout"}
-          </Link>
+          <Link href={"/logout"}>{"Logout"}</Link>
         </li>
       </ul>
     </nav>
