@@ -1,97 +1,57 @@
-"use client";
+import { login, signup } from "./actions";
 
-import React, { useState } from "react";
-import VSpacer from "@/components/v-spacer/v-spacer";
-import Button from "@/components/button/button";
-import Spinner from "@/components/spinner/spinner";
-import { supabase } from "../supabase/client";
-import { useRouter } from "next/navigation";
-import axios from "axios";
-
-export default function Login() {
-  const [email, setEmail] = useState("");
-  const [loginFailure, setLoginFailure] = useState(false);
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
-
-  function handleSignUp() {
-    router.push("/signup");
-  }
-
-  async function handleLogin() {
-    setLoading(true);
-    setLoginFailure(false);
-
-    try {
-      const res = await axios.post("/api/login", {
-        email,
-        password,
-      });
-
-      setLoading(false);
-
-      router.push("/");
-    } catch (error) {
-      setLoading(false);
-      setLoginFailure(true);
-    }
-  }
-
+export default function LoginPage() {
   return (
-    <main className="p-16 h-screen flex flex-col items-center justify-center">
-      <div className="text-blue-500 text-4xl text-center mb-16">Login</div>
-      <div className="w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <form className="bg-white p-8 rounded shadow-md w-full max-w-md">
+        <h2 className="text-2xl font-bold mb-6 text-center text-blue-500">
+          Login
+        </h2>
+
         <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="email"
-          >
-            Email
+          <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
+            Email:
           </label>
           <input
             id="email"
+            name="email"
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Enter your email"
+            required
+            className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
+
         <div className="mb-6">
           <label
-            className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="password"
+            className="block text-gray-700 font-bold mb-2"
           >
-            Password
+            Password:
           </label>
           <input
             id="password"
+            name="password"
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Enter your password"
+            required
+            className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
-        <div className="flex items-center justify-between">
-          <Button onClick={handleLogin} disabled={loading}>
-            {loading ? "Logging in..." : "Login"}
-          </Button>
-          <Button onClick={handleSignUp} disabled={loading}>
-            Sign Up
-          </Button>
-        </div>
-        {loading && (
-          <div className="flex justify-center items-center mt-4">
-            <Spinner />
-          </div>
-        )}
-      </div>
 
-      {loginFailure && (
-        <div className="text-red-500 text-xl">Login Failure</div>
-      )}
-    </main>
+        <div className="flex items-center justify-between">
+          <button
+            formAction={login}
+            className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            Log in
+          </button>
+          <button
+            formAction={signup}
+            className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
+          >
+            Sign up
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }
