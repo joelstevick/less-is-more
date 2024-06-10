@@ -1,18 +1,19 @@
-// pages/api/logout.ts
-import { clearAuthCookies, supabase } from "@/app/utils/supabase/supabase";
 import { NextApiRequest, NextApiResponse } from "next";
+import { cookies } from "next/headers";
+import { NextRequest, NextResponse } from "next/server";
 
-export default async function Logout(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  const { error } = await supabase.auth.signOut();
+export async function POST(req: NextRequest) {
+  if (req.method === "POST") {
+    const cookieStore = cookies();
+    cookieStore.set(
+      `sb-${process.env.NEXT_PUBLIC_PROJECT_ID}-auth-token`,
+      "",
+      {}
+    );
 
-  if (error) {
-    return res.status(500).json({ error: error.message });
+    return NextResponse.json({
+      message: "Logged out successfully",
+      status: 200,
+    });
   }
-
-  clearAuthCookies(res);
-
-  res.status(200).json({ message: "Logged out" });
 }

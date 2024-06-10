@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "../supabase/client";
 import Button from "@/components/button/button";
 import Spinner from "@/components/spinner/spinner";
 
@@ -12,12 +11,19 @@ export default function Logout() {
 
   const handleLogout = async () => {
     setLoading(true);
-    const { error } = await supabase.auth.signOut();
+    const res = await fetch('/api/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
     setLoading(false);
-    if (!error) {
-      router.push("/login");
+    if (res.ok) {
+      router.push('/login');
     } else {
-      console.error("Error logging out:", error.message);
+      const data = await res.json();
+      console.error('Error logging out:', data.error);
     }
   };
 
@@ -31,7 +37,7 @@ export default function Logout() {
       <div className="text-center mb-8">Are you sure you want to log out?</div>
       <div className="flex space-x-4">
         <Button onClick={handleLogout} disabled={loading}>
-          {loading ? <Spinner /> : "Yes, Log me out"}
+          {loading ? <Spinner /> : 'Yes, Log me out'}
         </Button>
         <Button onClick={handleCancel} disabled={loading}>
           No, Cancel
