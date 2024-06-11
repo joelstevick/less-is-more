@@ -1,5 +1,6 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
+import AuthService from '@/services/auth/auth-service';
 
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({
@@ -54,7 +55,11 @@ export async function updateSession(request: NextRequest) {
     }
   )
 
-  await supabase.auth.getUser()
+  const userResponse = await supabase.auth.getUser()
+
+  AuthService.user = userResponse.data.user;
+
+  console.log("XXX-user", AuthService.user)
 
   return response
 }

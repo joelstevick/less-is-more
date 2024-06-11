@@ -5,31 +5,27 @@ import Link from "next/link";
 import { usePathname } from "next/navigation"; // Import usePathname from Next.js
 import HSpacer from "../h-spacer/h-spacer";
 import { supabase } from "@/app/supabase/client";
+import { User } from "@supabase/supabase-js";
+import axios from "axios";
 
 const Nav = () => {
   const pathname = usePathname();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const checkUser = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      setIsLoggedIn(!!user);
+      const res = await axios.get("/api/getUser", {});
+      const user = res.data.user;
+
+      setUser(user);
+
+      console.log("XXX-user", res);
     };
 
     checkUser();
 
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setIsLoggedIn(!!session?.user);
-      }
-    );
-
     // Cleanup the listener on component unmount
-    return () => {
-      authListener.subscription.unsubscribe();
-    };
+    return () => {};
   }, []);
 
   return (
@@ -60,7 +56,7 @@ const Nav = () => {
             pathname === "/login" ? "text-white" : ""
           }`}
         >
-          <Link href={"/logout"}>{"Logout"}</Link>
+          <Link href={"/logout"}>{user?.email}</Link>
         </li>
       </ul>
     </nav>
