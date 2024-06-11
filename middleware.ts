@@ -1,24 +1,30 @@
-import { type NextRequest } from 'next/server'
-import { updateSession } from '@/app/utils/supabase/middleware'
-import { cookies } from 'next/headers';
+import { type NextRequest } from "next/server";
+import { updateSession } from "@/app/utils/supabase/middleware";
+import { cookies } from "next/headers";
 
-const protectedRoutes = ['/', '/history']
+const protectedRoutes = ["/", "/history"];
 
 export async function middleware(request: NextRequest) {
-
   const pathName = request.nextUrl.pathname;
 
-  await updateSession(request)
+  await updateSession(request);
 
   const cookieStore = cookies();
   const authToken = cookieStore.get(
-    `sb-${process.env.NEXT_PUBLIC_PROJECT_ID}-auth-token`,
+    `sb-${process.env.NEXT_PUBLIC_PROJECT_ID}-auth-token`
   );
 
-  const isAuthenticated = !!authToken?.value
+  const isAuthenticated = !!authToken?.value;
 
-  if (!isAuthenticated && protectedRoutes.some(route => route === pathName)) {
-    return Response.redirect(new URL('/login', request.url))
+  if (
+    !isAuthenticated &&
+    protectedRoutes.some((route) => {
+      if (route === pathName) {
+        return true;
+      }
+    })
+  ) {
+    return Response.redirect(new URL("/login", request.url));
   }
 }
 
@@ -31,6 +37,6 @@ export const config = {
      * - favicon.ico (favicon file)
      * Feel free to modify this pattern to include more paths.
      */
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
-}
+};
