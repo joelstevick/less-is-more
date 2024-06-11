@@ -1,8 +1,16 @@
 import { type NextRequest } from 'next/server'
 import { updateSession } from '@/app/utils/supabase/middleware'
+import { cookies } from 'next/headers';
 
 export async function middleware(request: NextRequest) {
-  return await updateSession(request)
+  await updateSession(request)
+
+  const cookieStore = cookies();
+  const authToken = cookieStore.get(
+    `sb-${process.env.NEXT_PUBLIC_PROJECT_ID}-auth-token`,
+  );
+
+  const isAuthenticated = !!authToken?.value
 }
 
 export const config = {
