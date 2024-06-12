@@ -4,22 +4,19 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation"; // Import usePathname from Next.js
 import HSpacer from "../h-spacer/h-spacer";
-import { supabase } from "@/app/supabase/client";
-import { User } from "@supabase/supabase-js";
 import axios from "axios";
 
 const Nav = () => {
   const pathname = usePathname();
-  const [user, setUser] = useState<User | null>(null);
+  const [email, setEmail] = useState<string | null>(null);
 
   useEffect(() => {
     const checkUser = async () => {
       const res = await axios.get("/api/getUser", {});
-      const user = res.data.user;
+      const email = res.data.email;
 
-      setUser(user);
+      setEmail(email);
 
-      console.log("XXX-user", res);
     };
 
     checkUser();
@@ -56,7 +53,7 @@ const Nav = () => {
             pathname === "/login" ? "text-white" : ""
           }`}
         >
-          <Link href={"/logout"}>{user?.email}</Link>
+          <Link href={"/logout"}>{email}</Link>
         </li>
       </ul>
     </nav>
