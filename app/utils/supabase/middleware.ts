@@ -57,9 +57,7 @@ export async function updateSession(request: NextRequest) {
 
   const userResponse = await supabase.auth.getUser();
 
-  AuthService.user = userResponse.data.user;
-
-  console.log("XXX-user", AuthService.user);
+  AuthService.setEmail(request, response, userResponse.data.user?.email ?? '');
 
   return response;
 }
