@@ -18,14 +18,6 @@ class AuthService {
     return this.instance;
   }
 
-  public setEmail(req: NextRequest, res: NextResponse, email: string) {
-    const cookie = serialize("user-email", email, {
-      path: "/",
-      httpOnly: true,
-      maxAge: 60 * 60 * 24 * 7, // 1 week
-    });
-    res.headers.append("Set-Cookie", cookie);
-  }
   public getEmail(request: NextRequest): string | null {
     const cookies = parse(request.headers.get("cookie") || "");
     const authToken =  JSON.parse(cookies["sb-iredqorsavrwzmvuyysd-auth-token"])
