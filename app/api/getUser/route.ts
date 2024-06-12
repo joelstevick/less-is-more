@@ -1,8 +1,14 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import AuthService from '@/services/auth/auth-service';
 
-export async function GET() {
-  const user = AuthService.user;
+export async function GET(request: NextRequest) {
+  const authService = AuthService;
+  const email = authService.getEmail(request);
 
-  return NextResponse.json({ user }, { status: 200 });
+  if (!email) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  console.log('User Email:', email);
+  return NextResponse.json({ email }, { status: 200 });
 }
