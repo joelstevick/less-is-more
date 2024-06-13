@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getAuthCookies, supabase } from '../utils/supabase/supabase';
+import { getAuthCookies, supabase } from '../utils/supabase/client';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { accessToken, refreshToken } = getAuthCookies(req);
