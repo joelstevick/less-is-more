@@ -58,6 +58,9 @@ export default function Home() {
             <Button onClick={getAiResponse}>Get AI Assistance</Button>
             <HSpacer />
             <CopyToClipboard textareaRef={textareaRef} />
+            <HSpacer></HSpacer>
+            <Button type="submit">Save</Button>
+
           </div>
         </div>
         <Textarea
