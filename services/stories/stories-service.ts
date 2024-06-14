@@ -2,9 +2,9 @@ import { Story } from "@/models/story.model";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { randomUUID } from "crypto";
 import { cookies } from "next/headers";
-
+import { BehaviorSubject, filter, map, take } from "rxjs";
 class StoriesService {
-  private stories: Story[] = [];
+  private stories$ = new BehaviorSubject<Story[] | null>(null);
 
   private constructor() {
     this.init();
@@ -25,7 +25,7 @@ class StoriesService {
       .eq("user_id", user.id)
       .order("updated_at", { ascending: false });
 
-    this.stories = stories ?? [];
+    this.stories$.next(stories ?? []);
 
     if (error) {
       console.error("Error fetching watches");
@@ -44,19 +44,23 @@ class StoriesService {
     return this.instance;
   }
 
-  public getStories() {
-    return this.stories;
-  }
 
-  getCurrentStory() {
-    console.log("getCurrentStory")
-    return (
-      this.stories[0] ?? {
-        id: randomUUID(),
-        story: "",
-        summary: "",
-        poll: "",
-      }
+  getCurrentStory$() {
+    console.log("getCurrentStory");
+
+    return this.stories$.pipe(
+      filter(stories => !!stories),
+      take(1),
+      map((stories) => {
+        return (
+          stories![0] ?? {
+            id: randomUUID(),
+            story: "",
+            summary: "",
+            poll: "",
+          }
+        );
+      })
     );
   }
 }
