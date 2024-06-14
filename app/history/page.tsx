@@ -9,7 +9,7 @@ export default async function HistoryPage() {
       <Nav />
       <main className="p-16 h-screen">
         {history?.map((story) => {
-          return <div key="story.id" className="border-blue-500 border-b-2 pb-2">{story.story}</div>;
+          return <div key="story.id" className="border-blue-500 border-t-2 pt-2">{story.story}</div>;
         })}
       </main>
     </>
