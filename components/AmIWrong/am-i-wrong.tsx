@@ -63,6 +63,7 @@ export default function Home() {
         <Textarea
           ref={textareaRef}
           value={story}
+          name="story"
           onChange={(e) => setStory(e.target.value)}
         />
         <VSpacer />
