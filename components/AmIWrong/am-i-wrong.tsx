@@ -7,7 +7,7 @@ import VSpacer from "@/components/v-spacer/v-spacer";
 import { useRef, useState } from "react";
 import CopyToClipboard from "@/components/clipboard/copy-to-clipboard";
 import HSpacer from "@/components/h-spacer/h-spacer";
-import { updateHistory } from "@/server-actions/update-history"
+import { updateHistory } from "@/server-actions/update-history";
 import { ToastContainer } from "react-toastify";
 import Spinner from "@/components/spinner/spinner";
 import axios from "axios";
@@ -18,7 +18,7 @@ function convertTextToHtml(text: string) {
   return html;
 }
 
-export default function Home({userStory}: {userStory: Story}) {
+export default function Home({ userStory }: { userStory: Story }) {
   const [story, setStory] = useState(userStory?.story);
   const [aiSummary, setAiSummary] = useState(userStory?.summary);
   const [aiSummaryText, setAiSummaryText] = useState(userStory?.summary);
@@ -53,6 +53,7 @@ export default function Home({userStory}: {userStory: Story}) {
         Am I Wrong?
       </div>
       <form action={updateHistory} className="mt-4">
+        <input type="hidden" name="id" value={userStory.id}></input>
         <div className="flex items-end justify-between pb-1">
           <div className="text-blue-500 text-2xl">My Story</div>
           <div className="flex justify-end">
@@ -61,7 +62,6 @@ export default function Home({userStory}: {userStory: Story}) {
             <CopyToClipboard textareaRef={textareaRef} />
             <HSpacer></HSpacer>
             <Button type="submit">Save</Button>
-
           </div>
         </div>
         <Textarea
@@ -74,7 +74,7 @@ export default function Home({userStory}: {userStory: Story}) {
         <VSpacer />
         <VSpacer />
 
-        {aiSummary.length > 0 && (
+        {aiSummary && (
           <>
             <VSpacer />
             <div className="flex justify-between items-end w-full pb-1">
@@ -83,10 +83,9 @@ export default function Home({userStory}: {userStory: Story}) {
             </div>
             <ScrollableText content={aiSummary} />
             <input type="hidden" name="summary" value={aiSummary}></input>
-
           </>
         )}
-        {aiPoll.length > 0 && (
+        {aiPoll && (
           <>
             <VSpacer />
             <VSpacer />

@@ -1,11 +1,10 @@
 // components/ScrollableText.js
 import React from "react";
-import DOMPurify from "dompurify";
 interface ScrollableTextProps {
   content: string;
 }
 const ScrollableText: React.FC<ScrollableTextProps> = ({ content }) => {
-  const sanitizedContent = content ? DOMPurify.sanitize(content) : DOMPurify.sanitize("");
+  const sanitizedContent = content;
 
   return (
     <div

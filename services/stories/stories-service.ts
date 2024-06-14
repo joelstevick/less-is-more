@@ -10,6 +10,8 @@ class StoriesService {
     this.init();
   }
   private async init() {
+    console.log("StoriesService entered");
+
     const cookieStore = cookies();
     const supabase = createServerComponentClient({
       cookies: () => cookieStore,
