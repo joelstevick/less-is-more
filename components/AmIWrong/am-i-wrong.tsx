@@ -11,18 +11,18 @@ import { updateHistory } from "@/server-actions/update-history"
 import { ToastContainer } from "react-toastify";
 import Spinner from "@/components/spinner/spinner";
 import axios from "axios";
+import { Story } from "@/models/story.model";
 
 function convertTextToHtml(text: string) {
   let html = text.replaceAll("\n", "<br>");
   return html;
 }
 
-export default function Home() {
-  const [story, setStory] = useState("");
-  const [id, setId] = useState(null);
-  const [aiSummary, setAiSummary] = useState("");
-  const [aiSummaryText, setAiSummaryText] = useState("");
-  const [aiPoll, setAiPoll] = useState("");
+export default function Home({userStory}: {userStory: Story}) {
+  const [story, setStory] = useState(userStory?.story);
+  const [aiSummary, setAiSummary] = useState(userStory?.summary);
+  const [aiSummaryText, setAiSummaryText] = useState(userStory?.summary);
+  const [aiPoll, setAiPoll] = useState(userStory?.poll);
   const [loading, setLoading] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 

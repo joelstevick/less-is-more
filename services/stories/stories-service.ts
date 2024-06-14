@@ -1,12 +1,12 @@
 import { Story } from "@/models/story.model";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { randomUUID } from "crypto";
 import { cookies } from "next/headers";
 
 class StoriesService {
   private stories: Story[] = [];
 
   private constructor() {
-
     this.init();
   }
   private async init() {
@@ -46,6 +46,18 @@ class StoriesService {
 
   public getStories() {
     return this.stories;
+  }
+
+  getCurrentStory() {
+    console.log("getCurrentStory")
+    return (
+      this.stories[0] ?? {
+        id: randomUUID(),
+        story: "",
+        summary: "",
+        poll: "",
+      }
+    );
   }
 }
 

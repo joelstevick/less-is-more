@@ -3,12 +3,12 @@ import Nav from "@/components/nav/nav";
 import StoriesService from "@/services/stories/stories-service";
 
 const Home = async () => {
-  const stories = StoriesService.getStories();
-  
+  const story = StoriesService.getCurrentStory();
+
   return (
     <>
       <Nav />
-      <AmIWrong />
+      <AmIWrong userStory={story} />
     </>
   );
 };
