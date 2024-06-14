@@ -81,6 +81,8 @@ export default function Home() {
               <Button onClick={use}>Use</Button>
             </div>
             <ScrollableText content={aiSummary} />
+            <input type="hidden" name="summary" value={aiSummary}></input>
+
           </>
         )}
         {aiPoll.length > 0 && (
@@ -89,6 +91,7 @@ export default function Home() {
             <VSpacer />
             <VSpacer />
             <div className="text-blue-500 text-2xl">Poll choices</div>
+            <input type="hidden" name="poll" value={aiPoll}></input>
             <ScrollableText content={aiPoll} />
           </>
         )}
