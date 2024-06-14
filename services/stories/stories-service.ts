@@ -10,7 +10,6 @@ class StoriesService {
     this.init();
   }
   private async init() {
-    console.log("StoriesService entered");
 
     const cookieStore = cookies();
     const supabase = createServerComponentClient({
@@ -33,7 +32,6 @@ class StoriesService {
       console.error("Error fetching watches");
     }
 
-    console.log("StoriesService", stories);
   }
 
   private static instance: StoriesService | null = null;
