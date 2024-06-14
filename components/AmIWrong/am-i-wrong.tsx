@@ -12,6 +12,7 @@ import { ToastContainer } from "react-toastify";
 import Spinner from "@/components/spinner/spinner";
 import axios from "axios";
 import { Story } from "@/models/story.model";
+const { v4: uuidv4 } = require('uuid');
 
 function convertTextToHtml(text: string) {
   let html = text.replaceAll("\n", "<br>");
@@ -19,6 +20,7 @@ function convertTextToHtml(text: string) {
 }
 
 export default function Home({ userStory }: { userStory: Story }) {
+  const [id, setId] = useState(userStory?.id);
   const [story, setStory] = useState(userStory?.story);
   const [aiSummary, setAiSummary] = useState(userStory?.summary);
   const [aiSummaryText, setAiSummaryText] = useState(userStory?.summary);
@@ -49,6 +51,14 @@ export default function Home({ userStory }: { userStory: Story }) {
     setAiPoll("");
   }
 
+  function newStory() {
+    
+    setId(uuidv4())
+    setStory("")
+    setAiSummaryText("")
+    setAiSummary("");
+    setAiPoll("");
+  }
   async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setSaving(true);
@@ -70,10 +80,15 @@ export default function Home({ userStory }: { userStory: Story }) {
         Am I Wrong?
       </div>
       <form onSubmit={handleFormSubmit} className="mt-4" autoComplete="off">
-        <input type="hidden" name="id" value={userStory.id}></input>
+        <input type="hidden" name="id" value={id}></input>
         <div className="flex items-end justify-between pb-1">
           <div className="text-blue-500 text-2xl">My Story</div>
           <div className="flex justify-end">
+          <Button onClick={newStory} type="button">
+              New Story
+            </Button>
+            <HSpacer />
+
             <Button onClick={getAiResponse} type="button">
               Get AI Assistance
             </Button>
