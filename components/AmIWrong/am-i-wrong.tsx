@@ -47,21 +47,40 @@ export default function Home({ userStory }: { userStory: Story }) {
     setAiPoll("");
   }
 
+  async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setLoading(true);
+
+    const formData = new FormData(event.currentTarget);
+    try {
+      await updateHistory(formData);
+      // Handle success, e.g., show a toast notification
+    } catch (error) {
+      // Handle error, e.g., show an error notification
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <main className="p-16 h-screen">
       <div className="text-blue-500 text-4xl text-center mb-16">
         Am I Wrong?
       </div>
-      <form action={updateHistory} className="mt-4">
+      <form onSubmit={handleFormSubmit} className="mt-4">
         <input type="hidden" name="id" value={userStory.id}></input>
         <div className="flex items-end justify-between pb-1">
           <div className="text-blue-500 text-2xl">My Story</div>
           <div className="flex justify-end">
-            <Button onClick={getAiResponse}>Get AI Assistance</Button>
+            <Button onClick={getAiResponse} type="button">
+              Get AI Assistance
+            </Button>
             <HSpacer />
             <CopyToClipboard textareaRef={textareaRef} />
-            <HSpacer></HSpacer>
-            <Button type="submit">Save</Button>
+            <HSpacer />
+            <Button type="submit" disabled={loading}>
+              {loading ? <Spinner /> : "Save"}
+            </Button>
           </div>
         </div>
         <Textarea
