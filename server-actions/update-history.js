@@ -6,7 +6,7 @@ import { cookies } from "next/headers";
 
 export async function updateHistory(formData) {
   console.log("updateHistory", formData);
-  const id = formData.get("id") ?? randomUUID();
+  const id = formData.get("id");
   const story = formData.get("story");
   const summary = formData.get("summary");
   const poll = formData.get("poll");

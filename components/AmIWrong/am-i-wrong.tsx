@@ -19,6 +19,7 @@ function convertTextToHtml(text: string) {
 
 export default function Home() {
   const [story, setStory] = useState("");
+  const [id, setId] = useState(null);
   const [aiSummary, setAiSummary] = useState("");
   const [aiSummaryText, setAiSummaryText] = useState("");
   const [aiPoll, setAiPoll] = useState("");
