@@ -24,6 +24,8 @@ export default function Home({ userStory }: { userStory: Story }) {
   const [aiSummaryText, setAiSummaryText] = useState(userStory?.summary);
   const [aiPoll, setAiPoll] = useState(userStory?.poll);
   const [loading, setLoading] = useState(false);
+  const [saving, setSaving] = useState(false);
+
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   async function getAiResponse() {
@@ -49,7 +51,7 @@ export default function Home({ userStory }: { userStory: Story }) {
 
   async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setLoading(true);
+    setSaving(true);
 
     const formData = new FormData(event.currentTarget);
     try {
@@ -58,7 +60,7 @@ export default function Home({ userStory }: { userStory: Story }) {
     } catch (error) {
       // Handle error, e.g., show an error notification
     } finally {
-      setLoading(false);
+      setSaving(false);
     }
   }
 
@@ -79,7 +81,7 @@ export default function Home({ userStory }: { userStory: Story }) {
             <CopyToClipboard textareaRef={textareaRef} />
             <HSpacer />
             <Button type="submit" disabled={loading}>
-              {loading ? <Spinner /> : "Save"}
+              {saving ? <Spinner /> : "Save"}
             </Button>
           </div>
         </div>
