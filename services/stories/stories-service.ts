@@ -29,7 +29,7 @@ class StoriesService {
     this.stories$.next(stories ?? []);
 
     if (error) {
-      console.error("Error fetching watches");
+      console.error("Error fetching history");
     }
 
   }
