@@ -26,7 +26,7 @@ const Nav = () => {
   }, []);
 
   return (
-    <nav className="flex justify-end bg-blue-500 py-4 px-6 text-2xl">
+    <nav className="flex justify-end bg-blue-500 py-4 px-6 text-2xl sticky top-0">
       <ul className="flex space-x-4 text-blue-300">
         <li
           className={`hover:text-blue-100 ${
