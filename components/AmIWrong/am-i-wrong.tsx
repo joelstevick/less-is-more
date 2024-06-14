@@ -69,7 +69,7 @@ export default function Home({ userStory }: { userStory: Story }) {
       <div className="text-blue-500 text-4xl text-center mb-16">
         Am I Wrong?
       </div>
-      <form onSubmit={handleFormSubmit} className="mt-4">
+      <form onSubmit={handleFormSubmit} className="mt-4" autoComplete="off">
         <input type="hidden" name="id" value={userStory.id}></input>
         <div className="flex items-end justify-between pb-1">
           <div className="text-blue-500 text-2xl">My Story</div>
@@ -80,9 +80,12 @@ export default function Home({ userStory }: { userStory: Story }) {
             <HSpacer />
             <CopyToClipboard textareaRef={textareaRef} />
             <HSpacer />
-            <Button type="submit" disabled={loading}>
-              {saving ? <Spinner /> : "Save"}
-            </Button>
+            {!saving && (
+              <Button type="submit" disabled={loading}>
+                Save
+              </Button>
+            )}
+            {saving && <Spinner></Spinner>}
           </div>
         </div>
         <Textarea
