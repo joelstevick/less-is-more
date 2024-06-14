@@ -7,6 +7,7 @@ import VSpacer from "@/components/v-spacer/v-spacer";
 import { useRef, useState } from "react";
 import CopyToClipboard from "@/components/clipboard/copy-to-clipboard";
 import HSpacer from "@/components/h-spacer/h-spacer";
+import { updateHistory } from "@/server-actions/update-history"
 import { ToastContainer } from "react-toastify";
 import Spinner from "@/components/spinner/spinner";
 import axios from "axios";
@@ -17,7 +18,7 @@ function convertTextToHtml(text: string) {
 }
 
 export default function Home() {
-  const [userContent, setUserContent] = useState("");
+  const [story, setStory] = useState("");
   const [aiSummary, setAiSummary] = useState("");
   const [aiSummaryText, setAiSummaryText] = useState("");
   const [aiPoll, setAiPoll] = useState("");
@@ -40,7 +41,7 @@ export default function Home() {
   }
 
   function use() {
-    setUserContent(aiSummaryText);
+    setStory(aiSummaryText);
     setAiSummary("");
     setAiPoll("");
   }
@@ -50,42 +51,44 @@ export default function Home() {
       <div className="text-blue-500 text-4xl text-center mb-16">
         Am I Wrong?
       </div>
-      <div className="flex items-end justify-between pb-1">
-        <div className="text-blue-500 text-2xl">My Story</div>
-        <div className="flex justify-end">
-          <Button onClick={getAiResponse}>Get AI Assistance</Button>
-          <HSpacer />
-          <CopyToClipboard textareaRef={textareaRef} />
-        </div>
-      </div>
-      <Textarea
-        ref={textareaRef}
-        value={userContent}
-        onChange={(e) => setUserContent(e.target.value)}
-      />
-      <VSpacer />
-      <VSpacer />
-      <VSpacer />
-
-      {aiSummary.length > 0 && (
-        <>
-          <VSpacer />
-          <div className="flex justify-between items-end w-full pb-1">
-            <div className="text-blue-500 text-2xl">Summary</div>
-            <Button onClick={use}>Use</Button>
+      <form action={updateHistory} className="mt-4">
+        <div className="flex items-end justify-between pb-1">
+          <div className="text-blue-500 text-2xl">My Story</div>
+          <div className="flex justify-end">
+            <Button onClick={getAiResponse}>Get AI Assistance</Button>
+            <HSpacer />
+            <CopyToClipboard textareaRef={textareaRef} />
           </div>
-          <ScrollableText content={aiSummary} />
-        </>
-      )}
-      {aiPoll.length > 0 && (
-        <>
-          <VSpacer />
-          <VSpacer />
-          <VSpacer />
-          <div className="text-blue-500 text-2xl">Poll choices</div>
-          <ScrollableText content={aiPoll} />
-        </>
-      )}
+        </div>
+        <Textarea
+          ref={textareaRef}
+          value={story}
+          onChange={(e) => setStory(e.target.value)}
+        />
+        <VSpacer />
+        <VSpacer />
+        <VSpacer />
+
+        {aiSummary.length > 0 && (
+          <>
+            <VSpacer />
+            <div className="flex justify-between items-end w-full pb-1">
+              <div className="text-blue-500 text-2xl">Summary</div>
+              <Button onClick={use}>Use</Button>
+            </div>
+            <ScrollableText content={aiSummary} />
+          </>
+        )}
+        {aiPoll.length > 0 && (
+          <>
+            <VSpacer />
+            <VSpacer />
+            <VSpacer />
+            <div className="text-blue-500 text-2xl">Poll choices</div>
+            <ScrollableText content={aiPoll} />
+          </>
+        )}
+      </form>
       {loading && <Spinner />}
       <ToastContainer
         position="top-right"
