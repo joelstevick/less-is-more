@@ -50,12 +50,14 @@ export default function Home() {
       <div className="text-blue-500 text-4xl text-center mb-16">
         Am I Wrong?
       </div>
-      <div className="flex justify-end">
-        <Button onClick={getAiResponse}>Get AI Assistance</Button>
-        <HSpacer />
-        <CopyToClipboard textareaRef={textareaRef} />
+      <div className="flex items-end justify-between pb-1">
+        <div className="text-blue-500 text-2xl">My Story</div>
+        <div className="flex justify-end">
+          <Button onClick={getAiResponse}>Get AI Assistance</Button>
+          <HSpacer />
+          <CopyToClipboard textareaRef={textareaRef} />
+        </div>
       </div>
-      <VSpacer />
       <Textarea
         ref={textareaRef}
         value={userContent}
